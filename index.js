@@ -17,6 +17,7 @@ const superOverEconomies=require("./ipl/superOverEconomies");
 
 
 const tossMatchesWon_refactored =require("./ipl/TossMatchesWon-Refactored");
+const manOfMatch_refactored =require("./ipl/manOfMatchEachSeason-Refactored");
 
 
 const DELIVERIES_FILE_PATH = "./csv_data/deliveries.csv";
@@ -57,6 +58,7 @@ function main() {
         let result806 = superOverEconomies(deliveries);
 
         let resultTossMatchesWon_refactored = tossMatchesWon_refactored(matches);
+        let manOfMatchEachSeason_refactored = manOfMatch_refactored(matches);
 
 
         all_in_one_Result['matchesPlayedPerYear'] = result;
@@ -69,6 +71,8 @@ function main() {
         all_in_one_Result['tosses'] =result102;
       
         refactoredResult['TossMatchesWon'] = resultTossMatchesWon_refactored
+        refactoredResult['ManOfMatchEachSeason'] = manOfMatchEachSeason_refactored
+
 
         const jsonString =JSON.stringify(all_in_one_Result);
         fs.writeFile(JSON_OUTPUT_FILE_PATH, jsonString, "utf8", err => {
