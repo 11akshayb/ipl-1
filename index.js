@@ -18,6 +18,8 @@ const superOverEconomies=require("./ipl/superOverEconomies");
 
 const tossMatchesWon_refactored =require("./ipl/TossMatchesWon-Refactored");
 const manOfMatch_refactored =require("./ipl/manOfMatchEachSeason-Refactored");
+const playersDismissed_refactored =require("./ipl/PlayersDismissed-Refactoring");
+
 
 
 const DELIVERIES_FILE_PATH = "./csv_data/deliveries.csv";
@@ -59,6 +61,7 @@ function main() {
 
         let resultTossMatchesWon_refactored = tossMatchesWon_refactored(matches);
         let manOfMatchEachSeason_refactored = manOfMatch_refactored(matches);
+        let resultPlayersDismissed_refactored = playersDismissed_refactored(deliveries);
 
 
         all_in_one_Result['matchesPlayedPerYear'] = result;
@@ -72,6 +75,7 @@ function main() {
       
         refactoredResult['TossMatchesWon'] = resultTossMatchesWon_refactored
         refactoredResult['ManOfMatchEachSeason'] = manOfMatchEachSeason_refactored
+        refactoredResult['PlayersDismissed'] = resultPlayersDismissed_refactored
 
 
         const jsonString =JSON.stringify(all_in_one_Result);
