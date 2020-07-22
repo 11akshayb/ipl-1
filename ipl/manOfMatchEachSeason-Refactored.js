@@ -14,7 +14,7 @@ function manOfMatchEachSeasonRefactored(matches){
 },{});
 
 let result={};
-let xy;
+
 for (let season in seasonsObj){
     
     //const manOfMatch = Math.max(...Object.values(seasonsObj[season]));
