@@ -12,8 +12,11 @@ const tosses=require("./ipl/tosses");
 const tossMatchesWon=require("./ipl/TossMatchesWon");
 const manOfMatchEachSeason=require("./ipl/manOfMatchEachSeason");
 const strikerates=require("./ipl/StrikeRate.js");
-const playerDismissed=require("./ipl/PlayerDismissed");
+const playerDismissed=require("./ipl/playerDismissed");
 const superOverEconomies=require("./ipl/superOverEconomies");
+
+
+const tossMatchesWon_refactored =require("./ipl/TossMatchesWon-Refactored");
 
 
 const DELIVERIES_FILE_PATH = "./csv_data/deliveries.csv";
@@ -25,6 +28,8 @@ const JSON_OUTPUT_FILE_PATH_4 = "./public/StrikeRate.json";
 const JSON_OUTPUT_FILE_PATH_5 = "./public/PlayerDismissals.json";
 const JSON_OUTPUT_FILE_PATH_6 = "./public/SuperOverEconomy.json";
 
+const JSON_OUTPUT_FILE_PATH_REFACTORED = "./public/RefactoredData.json"
+
 
 function main() {
 
@@ -32,7 +37,7 @@ function main() {
     .fromFile(MATCHES_FILE_PATH)
     .then(matches => {
       let all_in_one_Result={};
-      let finalResult={};
+      let refactoredResult={};
       csv()
       .fromFile(DELIVERIES_FILE_PATH)
       .then(deliveries =>{
@@ -51,6 +56,8 @@ function main() {
         let result804 = playerDismissed(deliveries);
         let result806 = superOverEconomies(deliveries);
 
+        let resultTossMatchesWon_refactored = tossMatchesWon_refactored(matches);
+
 
         all_in_one_Result['matchesPlayedPerYear'] = result;
         all_in_one_Result['winsPerTeameachYear'] = result2;
@@ -61,6 +68,7 @@ function main() {
         all_in_one_Result['winsByAllTeams'] =result7;
         all_in_one_Result['tosses'] =result102;
       
+        refactoredResult['TossMatchesWon'] = resultTossMatchesWon_refactored
 
         const jsonString =JSON.stringify(all_in_one_Result);
         fs.writeFile(JSON_OUTPUT_FILE_PATH, jsonString, "utf8", err => {
@@ -99,6 +107,14 @@ function main() {
         console.error(err)
         }
       });
+
+      const jsonString10 =JSON.stringify(refactoredResult);
+        fs.writeFile(JSON_OUTPUT_FILE_PATH_REFACTORED, jsonString10, "utf8", err => {
+        if(err){
+        console.error(err)
+        }
+      });
+
   
   }); 
  });
