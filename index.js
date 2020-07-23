@@ -18,6 +18,7 @@ const superOverEconomies=require("./ipl/superOverEconomies");
 
 const tossMatchesWon_refactored =require("./ipl/TossMatchesWon-Refactored");
 const manOfMatch_refactored =require("./ipl/manOfMatchEachSeason-Refactored");
+const strikeRates_refactored =require("./ipl/StrikeRate-Refactored");
 const playersDismissed_refactored =require("./ipl/PlayersDismissed-Refactoring");
 const superOverEconomies_refactored =require("./ipl/SuperOverEconomies-Refactoring");
 
@@ -62,6 +63,7 @@ function main() {
 
         let resultTossMatchesWon_refactored = tossMatchesWon_refactored(matches);
         let manOfMatchEachSeason_refactored = manOfMatch_refactored(matches);
+        let strikeRates_refactoredResult = strikeRates_refactored(matches,deliveries);
         let resultPlayersDismissed_refactored = playersDismissed_refactored(deliveries);
         let resultSuperOverEconomies_refactored = superOverEconomies_refactored(deliveries);
 
@@ -76,6 +78,7 @@ function main() {
       
         refactoredResult['TossMatchesWon'] = resultTossMatchesWon_refactored
         refactoredResult['ManOfMatchEachSeason'] = manOfMatchEachSeason_refactored
+        refactoredResult['StrikeRateRefactored'] = strikeRates_refactoredResult
         refactoredResult['PlayersDismissed'] = resultPlayersDismissed_refactored
         refactoredResult['SuperOverEconomy'] = resultSuperOverEconomies_refactored
 
