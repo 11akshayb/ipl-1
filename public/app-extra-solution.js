@@ -10,6 +10,7 @@ function visualizeData(data){
     visualizeTossesMatches(data.tossMatchesWon)
     visualizeManOfMatchEachSeason(data.manOfMatchEachSeason)
     visualizeGayleStrikeRates(data.gayleStrikeRate)
+    visualizeDismissalsofGayle(data.DismissalsofGayle)
     return;
 }
 
@@ -128,6 +129,40 @@ function visualizeGayleStrikeRates(gayleStrikeRate){
     series: [
       {
         name: "Strike Rates",
+        data: visualizationArray
+      }
+    ]
+  });
+}
+
+function visualizeDismissalsofGayle(dismissalsofGayle){
+  const visualizationArray = [];
+  for (let bowler in dismissalsofGayle)  {
+    visualizationArray.push([bowler, dismissalsofGayle[bowler]]);
+  }
+
+  Highcharts.chart("dismissals_of_Gayle", {
+    chart: {
+      type: "column"
+    },
+    title: {
+      text: "Dismissals of Gayle"
+    },
+    xAxis: {
+      title: {
+        text: "Bowlers"
+      },
+      type: "category"
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: "Wickets"
+      }
+    },
+    series: [
+      {
+        name: "Dismissals_of",
         data: visualizationArray
       }
     ]
