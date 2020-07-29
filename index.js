@@ -15,6 +15,7 @@ const strikerates=require("./ipl/StrikeRate.js");
 const gayleStrikeRate=require("./ipl/CH-GayleStrikeRates.js")
 //const strikerates1=require("./ipl/Review.js");
 const playerDismissed=require("./ipl/PlayerDismissed.js");
+const DismissalsofGayle=require("./ipl/DismissalsofGayle.js");
 const superOverEconomies=require("./ipl/superOverEconomies");
 
 
@@ -64,6 +65,7 @@ function main() {
         let result803 = strikerates(matches,deliveries);
         let result8041 = gayleStrikeRate(matches,deliveries);
         let result804 = playerDismissed(deliveries);
+        let result805 = DismissalsofGayle(deliveries);
         let result806 = superOverEconomies(deliveries);
         //let resultx= strikerates1(matches,deliveries);
 
@@ -87,6 +89,7 @@ function main() {
         extraQuestionSolutionResult['strikerates'] = result803
         extraQuestionSolutionResult['gayleStrikeRate'] = result8041
         extraQuestionSolutionResult['playerDismissed'] = result804
+        extraQuestionSolutionResult['DismissalsofGayle'] = result805
         extraQuestionSolutionResult['superOverEconomies'] = result806
       
         refactoredResult['TossMatchesWon'] = resultTossMatchesWon_refactored
