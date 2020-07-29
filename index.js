@@ -12,6 +12,7 @@ const tosses=require("./ipl/tosses");
 const tossMatchesWon=require("./ipl/TossMatchesWon");
 const manOfMatchEachSeason=require("./ipl/manOfMatchEachSeason");
 const strikerates=require("./ipl/StrikeRate.js");
+//const strikerates1=require("./ipl/Review.js");
 const playerDismissed=require("./ipl/playerDismissed");
 const superOverEconomies=require("./ipl/superOverEconomies");
 
@@ -23,7 +24,6 @@ const playersDismissed_refactored =require("./ipl/PlayersDismissed-Refactoring")
 const superOverEconomies_refactored =require("./ipl/SuperOverEconomies-Refactoring");
 
 
-
 const DELIVERIES_FILE_PATH = "./csv_data/deliveries.csv";
 const MATCHES_FILE_PATH = "./csv_data/matches.csv";
 const JSON_OUTPUT_FILE_PATH = "./public/data.json";
@@ -32,6 +32,8 @@ const JSON_OUTPUT_FILE_PATH_3 = "./public/manOfMatchEachSeason.json";
 const JSON_OUTPUT_FILE_PATH_4 = "./public/StrikeRate.json";
 const JSON_OUTPUT_FILE_PATH_5 = "./public/PlayerDismissals.json";
 const JSON_OUTPUT_FILE_PATH_6 = "./public/SuperOverEconomy.json";
+
+const JSON_OUTPUT_FILE_PATH_EXTRA_SOLUTIONS = "./public/ExtraSolution.json";
 
 const JSON_OUTPUT_FILE_PATH_REFACTORED = "./public/RefactoredData.json"
 
@@ -43,6 +45,7 @@ function main() {
     .then(matches => {
       let all_in_one_Result={};
       let refactoredResult={};
+      let extraQuestionSolutionResult={};
       csv()
       .fromFile(DELIVERIES_FILE_PATH)
       .then(deliveries =>{
@@ -60,6 +63,7 @@ function main() {
         let result803 = strikerates(matches,deliveries);
         let result804 = playerDismissed(deliveries);
         let result806 = superOverEconomies(deliveries);
+        //let resultx= strikerates1(matches,deliveries);
 
         let resultTossMatchesWon_refactored = tossMatchesWon_refactored(matches);
         let manOfMatchEachSeason_refactored = manOfMatch_refactored(matches);
@@ -75,6 +79,12 @@ function main() {
         all_in_one_Result['winsPerVenue'] = result6;
         all_in_one_Result['winsByAllTeams'] =result7;
         all_in_one_Result['tosses'] =result102;
+
+        extraQuestionSolutionResult['tossMatchesWon'] = result801
+        extraQuestionSolutionResult['manOfMatchEachSeason'] = result802
+        extraQuestionSolutionResult['strikerates'] = result803
+        extraQuestionSolutionResult['playerDismissed'] = result804
+        extraQuestionSolutionResult['superOverEconomies'] = result806
       
         refactoredResult['TossMatchesWon'] = resultTossMatchesWon_refactored
         refactoredResult['ManOfMatchEachSeason'] = manOfMatchEachSeason_refactored
@@ -85,6 +95,13 @@ function main() {
 
         const jsonString =JSON.stringify(all_in_one_Result);
         fs.writeFile(JSON_OUTPUT_FILE_PATH, jsonString, "utf8", err => {
+        if(err){
+        console.error(err)
+        }
+      });
+
+      const jsonString_extraSolution =JSON.stringify(extraQuestionSolutionResult);
+        fs.writeFile(JSON_OUTPUT_FILE_PATH_EXTRA_SOLUTIONS, jsonString_extraSolution, "utf8", err => {
         if(err){
         console.error(err)
         }
