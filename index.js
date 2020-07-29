@@ -14,7 +14,7 @@ const manOfMatchEachSeason=require("./ipl/manOfMatchEachSeason");
 const strikerates=require("./ipl/StrikeRate.js");
 const gayleStrikeRate=require("./ipl/CH-GayleStrikeRates.js")
 //const strikerates1=require("./ipl/Review.js");
-const playerDismissed=require("./ipl/playerDismissed");
+const playerDismissed=require("./ipl/PlayerDismissed.js");
 const superOverEconomies=require("./ipl/superOverEconomies");
 
 
