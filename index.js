@@ -12,6 +12,7 @@ const tosses=require("./ipl/tosses");
 const tossMatchesWon=require("./ipl/TossMatchesWon");
 const manOfMatchEachSeason=require("./ipl/manOfMatchEachSeason");
 const strikerates=require("./ipl/StrikeRate.js");
+const gayleStrikeRate=require("./ipl/CH-GayleStrikeRates.js")
 //const strikerates1=require("./ipl/Review.js");
 const playerDismissed=require("./ipl/playerDismissed");
 const superOverEconomies=require("./ipl/superOverEconomies");
@@ -61,6 +62,7 @@ function main() {
         let result801 = tossMatchesWon(matches);
         let result802 = manOfMatchEachSeason(matches);
         let result803 = strikerates(matches,deliveries);
+        let result8041 = gayleStrikeRate(matches,deliveries);
         let result804 = playerDismissed(deliveries);
         let result806 = superOverEconomies(deliveries);
         //let resultx= strikerates1(matches,deliveries);
@@ -83,6 +85,7 @@ function main() {
         extraQuestionSolutionResult['tossMatchesWon'] = result801
         extraQuestionSolutionResult['manOfMatchEachSeason'] = result802
         extraQuestionSolutionResult['strikerates'] = result803
+        extraQuestionSolutionResult['gayleStrikeRate'] = result8041
         extraQuestionSolutionResult['playerDismissed'] = result804
         extraQuestionSolutionResult['superOverEconomies'] = result806
       
