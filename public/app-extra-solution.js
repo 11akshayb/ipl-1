@@ -9,6 +9,7 @@ fetchAndVisualizeData()
 function visualizeData(data){
     visualizeTossesMatches(data.tossMatchesWon)
     visualizeManOfMatchEachSeason(data.manOfMatchEachSeason)
+    visualizeGayleStrikeRates(data.gayleStrikeRate)
     return;
 }
 
@@ -97,4 +98,38 @@ function visualizeManOfMatchEachSeason(manOfMatchEachSeason){
     },
     series: visualizationArray
 });
+}
+function visualizeGayleStrikeRates(gayleStrikeRate){
+  const visualizationArray = [];
+  for (let seasons in gayleStrikeRate)  {
+    visualizationArray.push([seasons, gayleStrikeRate[seasons]]);
+  }
+
+  Highcharts.chart("gayle_StrikeRates", {
+    chart: {
+      type: "column"
+    },
+    title: {
+      text: "Chris Gayle Strike Rates in Each Season"
+    },
+    
+    xAxis: {
+      title: {
+        text: "Seasons"
+      },
+      type: "category"
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: "Strike Rates"
+      }
+    },
+    series: [
+      {
+        name: "Strike Rates",
+        data: visualizationArray
+      }
+    ]
+  });
 }

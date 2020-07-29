@@ -29,7 +29,7 @@ function gayleStrikeRates(matches,deliveries){
     var result={};
     for(let season in seasonObj){
         
-           result[season] = ((seasonObj[season].runs/seasonObj[season].ballsCount)*100).toFixed(3)     
+           result[season] = parseInt(((seasonObj[season].runs/seasonObj[season].ballsCount)*100).toFixed(3));     
     }
      return result;
 }
