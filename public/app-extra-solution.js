@@ -41,13 +41,11 @@ function VisualizingFunction(obj,data){
 
 function visualizeData(data){
   visualizeTossesAndMatch(data.tossMatchesWon)
-
   visualizeManofMatchesEachSeason(data.manOfMatchEachSeason)
   visualizeGayleStrikeRate(data.gayleStrikeRate)
   visualizeGayleDismissal(data.DismissalsofGayle)
   return;
 }
-
 function visualizeGayleDismissal(DismissalsofGayle){
   var obj={
     container_Id : 'DismissalsofGayle',
@@ -70,7 +68,7 @@ function visualizeManofMatchesEachSeason(manOfMatchEachSeason){
   var dataObj={};
   for(let season in manOfMatchEachSeason){
     var manofMatchesOnly = Object.values(manOfMatchEachSeason[season])
-    dataObj[manOfMatchEachSeason][season]=manofMatchesOnly[0];
+    dataObj[season]=manofMatchesOnly[0];
 }
   VisualizingFunction(obj,dataObj)
 }
