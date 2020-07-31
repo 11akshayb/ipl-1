@@ -4,167 +4,65 @@ function fetchAndVisualizeData (){
   .then(visualizeData);
 }
 
-fetchAndVisualizeData()
+fetchAndVisualizeData();
+
+function VisualizingFunction(obj,data){
+  const visualizationArray = [];
+  for (let element in data)  {
+    visualizationArray.push([element, data[element]]);
+  }
+  Highcharts.chart(obj.container_Id,{
+    chart: {
+      type: "column"
+    },
+    title: {
+      text: obj.text
+    },
+    xAxis: {
+      title: {
+        text: obj.x_text
+      },
+      type: "category"
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: obj.y_text
+      }
+    },
+    series: [
+      {
+        name: obj.series_name,
+        data: visualizationArray
+      }
+    ]
+  });
+}
+
 
 function visualizeData(data){
-    visualizeTossesMatches(data.tossMatchesWon)
-    visualizeManOfMatchEachSeason(data.manOfMatchEachSeason)
-    visualizeGayleStrikeRates(data.gayleStrikeRate)
-    visualizeDismissalsofGayle(data.DismissalsofGayle)
-    return;
+  visualizeGayleDismissal(data.DismissalsofGayle)
+  visualizeGayleStrikeRate(data.gayleStrikeRate)
+  return;
 }
 
-function visualizeTossesMatches(tossesMatchesWon){
-  const visualizationArray = [];
-  for (let team in tossesMatchesWon)  {
-    visualizationArray.push([team, tossesMatchesWon[team]]);
-  }
-
-  Highcharts.chart("tosses_and_Matches", {
-    chart: {
-      type: "column"
-    },
-    title: {
-      text: "Tosses & Matches Won Per Team"
-    },
-    // subtitle: {
-    //   text:
-    //     'Source: <a href="https://www.kaggle.com/nowke9/ipldata/data">IPL Dataset</a>'
-    // },
-    xAxis: {
-      title: {
-        text: "Teams"
-      },
-      type: "category"
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: "Wins"
-      }
-    },
-    series: [
-      {
-        name: "Tosses and Matches Won",
-        data: visualizationArray
-      }
-    ]
-  });
+function visualizeGayleDismissal(DismissalsofGayle){
+  var obj={
+    container_Id : 'DismissalsofGayle',
+    text : "Dismissals of Gayle",
+    x_text : "Seasons",
+    y_text : "Wicket",
+    series_name : "Dismissals_of"
+};
+VisualizingFunction(obj,DismissalsofGayle)
 }
-
-
-function visualizeManOfMatchEachSeason(manOfMatchEachSeason){
-  var seasons = Object.keys(manOfMatchEachSeason)
-  var players = [];
-  for(let season in manOfMatchEachSeason){
-  players.push(Object.keys(manOfMatchEachSeason[season]))
-  }
-  var x = players.flat();
-
-  let visualizationArray=[];
-  visualizationArray = x.map(player => ({
-  name: player,
-  data: seasons.map(season => manOfMatchEachSeason[season][player] || 0)
-  }));
-
-  Highcharts.chart('man_of_match', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Highest Man of The Match every season'
-    },
-    subtitle: {
-      text:
-        'Source: <a href="https://www.kaggle.com/nowke9/ipldata/data">IPL Dataset</a>'
-    },
-    xAxis: {
-      title: {
-        text: "Seasons"
-      },
-        categories: seasons,
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Man of Matches'
-        }
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.01,
-            borderWidth: 0
-        }
-    },
-    series: visualizationArray
-});
-}
-function visualizeGayleStrikeRates(gayleStrikeRate){
-  const visualizationArray = [];
-  for (let seasons in gayleStrikeRate)  {
-    visualizationArray.push([seasons, gayleStrikeRate[seasons]]);
-  }
-
-  Highcharts.chart("gayle_StrikeRates", {
-    chart: {
-      type: "column"
-    },
-    title: {
-      text: "Chris Gayle Strike Rates in Each Season"
-    },
-    
-    xAxis: {
-      title: {
-        text: "Seasons"
-      },
-      type: "category"
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: "Strike Rates"
-      }
-    },
-    series: [
-      {
-        name: "Strike Rates",
-        data: visualizationArray
-      }
-    ]
-  });
-}
-
-function visualizeDismissalsofGayle(dismissalsofGayle){
-  const visualizationArray = [];
-  for (let bowler in dismissalsofGayle)  {
-    visualizationArray.push([bowler, dismissalsofGayle[bowler]]);
-  }
-
-  Highcharts.chart("dismissals_of_Gayle", {
-    chart: {
-      type: "column"
-    },
-    title: {
-      text: "Dismissals of Gayle"
-    },
-    xAxis: {
-      title: {
-        text: "Bowlers"
-      },
-      type: "category"
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: "Wickets"
-      }
-    },
-    series: [
-      {
-        name: "Dismissals_of",
-        data: visualizationArray
-      }
-    ]
-  });
+function visualizeGayleStrikeRate(gayleStrikeRate){
+  var obj={
+    container_Id : 'gayleStrikeRate',
+    text : "Chris Gayle Strike Rates in Each Season",
+    x_text : "Bowler",
+    y_text : "Strike Rates",
+    series_name : "Strike Rates"
+};
+VisualizingFunction(obj,gayleStrikeRate)
 }
