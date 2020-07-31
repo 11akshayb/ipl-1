@@ -7,10 +7,13 @@ function fetchAndVisualizeData (){
 fetchAndVisualizeData();
 
 function VisualizingFunction(obj,data){
-  const visualizationArray = [];
-  for (let element in data)  {
-    visualizationArray.push([element, data[element]]);
-  }
+  //const visualizationArray = [];
+  // for (let element in data)  {
+  //   visualizationArray.push([element, data[element]]);
+  // }
+  var visualizationArray = (Object.keys(data)).map((key)=>{
+    return (key,data[key])
+  }) 
   Highcharts.chart(obj.container_Id,{
     chart: {
       type: "column"
@@ -41,8 +44,10 @@ function VisualizingFunction(obj,data){
 
 
 function visualizeData(data){
-  visualizeGayleDismissal(data.DismissalsofGayle)
+  visualizeTossesAndMatch(data.tossMatchesWon)
+  visualizeTossesAndMatch(data.tossMatchesWon)
   visualizeGayleStrikeRate(data.gayleStrikeRate)
+  visualizeGayleDismissal(data.DismissalsofGayle)
   return;
 }
 
@@ -54,6 +59,7 @@ function visualizeGayleDismissal(DismissalsofGayle){
     y_text : "Wicket",
     series_name : "Dismissals_of"
 };
+
 VisualizingFunction(obj,DismissalsofGayle)
 }
 function visualizeGayleStrikeRate(gayleStrikeRate){
@@ -66,3 +72,15 @@ function visualizeGayleStrikeRate(gayleStrikeRate){
 };
 VisualizingFunction(obj,gayleStrikeRate)
 }
+
+function visualizeTossesAndMatch(tossMatchesWon){
+var obj={
+  container_Id : 'tossMatchesWon',
+  text : "Tosses And Matches Won by Each Team",
+  x_text : "Teams",
+  y_text : "Matches",
+  series_name : "Matches"
+};
+VisualizingFunction(obj,tossMatchesWon)
+}
+
