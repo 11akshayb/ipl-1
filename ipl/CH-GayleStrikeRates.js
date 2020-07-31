@@ -1,6 +1,6 @@
 function gayleStrikeRates(matches,deliveries){
-    let seasonObj={};
-    for(let delivery of deliveries){
+
+    let strikeRatesObj=deliveries.reduce((seasonsObj,delivery) => {
         var player=delivery.batsman;
         var delMatchId=delivery.match_id;
             function matchingSeason(matches){
@@ -16,20 +16,23 @@ function gayleStrikeRates(matches,deliveries){
             var season = matchingSeason(matches);
 
             if(player=='CH Gayle'){
-                if(seasonObj[season]){
-                    seasonObj[season].runs += parseInt(delivery.batsman_runs);
-                    seasonObj[season].ballsCount += 1;
+                if(season in seasonsObj){
+                    seasonsObj[season].runs += parseInt(delivery.batsman_runs);
+                    seasonsObj[season].ballsCount += 1;
                 }else{
-                    seasonObj[season]={}
-                    seasonObj[season].runs = parseInt(delivery.batsman_runs);
-                    seasonObj[season].ballsCount = 1;
+                    seasonsObj[season]={}
+                    seasonsObj[season].runs = parseInt(delivery.batsman_runs);
+                    seasonsObj[season].ballsCount = 1;
                 }
             }
-    }
-    var result={};
-    for(let season in seasonObj){
+        return seasonsObj;
+
+    },{});
         
-           result[season] = parseInt(((seasonObj[season].runs/seasonObj[season].ballsCount)*100).toFixed(3));     
+    var result={};
+    for(let season in strikeRatesObj){
+        
+           result[season] = parseInt(((strikeRatesObj[season].runs/strikeRatesObj[season].ballsCount)*100).toFixed(3));     
     }
      return result;
 }

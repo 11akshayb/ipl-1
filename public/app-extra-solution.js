@@ -7,10 +7,6 @@ function fetchAndVisualizeData (){
 fetchAndVisualizeData();
 
 function VisualizingFunction(obj,data){
-  //const visualizationArray = [];
-  // for (let element in data)  {
-  //   visualizationArray.push([element, data[element]]);
-  // }
   var visualizationArray = (Object.keys(data)).map((key)=>{
     return (key,data[key])
   }) 
@@ -45,7 +41,6 @@ function VisualizingFunction(obj,data){
 
 function visualizeData(data){
   visualizeTossesAndMatch(data.tossMatchesWon)
-  visualizeTossesAndMatch(data.tossMatchesWon)
   visualizeGayleStrikeRate(data.gayleStrikeRate)
   visualizeGayleDismissal(data.DismissalsofGayle)
   return;
@@ -59,9 +54,9 @@ function visualizeGayleDismissal(DismissalsofGayle){
     y_text : "Wicket",
     series_name : "Dismissals_of"
 };
-
 VisualizingFunction(obj,DismissalsofGayle)
 }
+
 function visualizeGayleStrikeRate(gayleStrikeRate){
   var obj={
     container_Id : 'gayleStrikeRate',
@@ -83,4 +78,3 @@ var obj={
 };
 VisualizingFunction(obj,tossMatchesWon)
 }
-
