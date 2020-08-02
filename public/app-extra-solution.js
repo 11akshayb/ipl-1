@@ -68,7 +68,7 @@ function visualizeManofMatchesEachSeason(manOfMatchEachSeason){
   var dataObj={};
   for(let season in manOfMatchEachSeason){
     var manofMatchesOnly = Object.values(manOfMatchEachSeason[season])
-    dataObj[season]=manofMatchesOnly[0];
+    dataObj[season]=parseInt(manofMatchesOnly[0]);
 }
   VisualizingFunction(obj,dataObj)
 }
