@@ -12,9 +12,11 @@ const tosses=require("./ipl/tosses");
 const tossMatchesWon=require("./ipl/TossMatchesWon");
 const manOfMatchEachSeason=require("./ipl/manOfMatchEachSeason");
 const strikerates=require("./ipl/StrikeRate.js");
-const playerDismissed=require("./ipl/playerDismissed");
+const gayleStrikeRate=require("./ipl/CH-GayleStrikeRates.js")
+//const strikerates1=require("./ipl/Review.js");
+const playerDismissed=require("./ipl/PlayerDismissed.js");
+const DismissalsofGayle=require("./ipl/DismissalsofGayle.js");
 const superOverEconomies=require("./ipl/superOverEconomies");
-
 
 const tossMatchesWon_refactored =require("./ipl/TossMatchesWon-Refactored");
 const manOfMatch_refactored =require("./ipl/manOfMatchEachSeason-Refactored");
@@ -22,19 +24,11 @@ const strikeRates_refactored =require("./ipl/StrikeRate-Refactored");
 const playersDismissed_refactored =require("./ipl/PlayersDismissed-Refactoring");
 const superOverEconomies_refactored =require("./ipl/SuperOverEconomies-Refactoring");
 
-
-
 const DELIVERIES_FILE_PATH = "./csv_data/deliveries.csv";
 const MATCHES_FILE_PATH = "./csv_data/matches.csv";
 const JSON_OUTPUT_FILE_PATH = "./public/data.json";
-const JSON_OUTPUT_FILE_PATH_2 = "./public/tossAndMatchesWon.json";
-const JSON_OUTPUT_FILE_PATH_3 = "./public/manOfMatchEachSeason.json";
-const JSON_OUTPUT_FILE_PATH_4 = "./public/StrikeRate.json";
-const JSON_OUTPUT_FILE_PATH_5 = "./public/PlayerDismissals.json";
-const JSON_OUTPUT_FILE_PATH_6 = "./public/SuperOverEconomy.json";
-
+const JSON_OUTPUT_FILE_PATH_EXTRA_SOLUTIONS = "./public/ExtraSolution.json";
 const JSON_OUTPUT_FILE_PATH_REFACTORED = "./public/RefactoredData.json"
-
 
 function main() {
 
@@ -43,23 +37,27 @@ function main() {
     .then(matches => {
       let all_in_one_Result={};
       let refactoredResult={};
+      let extraQuestionSolutionResult={};
       csv()
       .fromFile(DELIVERIES_FILE_PATH)
       .then(deliveries =>{
-        let result = matchesPlayedPerYear(matches);
-        let result2 = winsPerTeameachYear(matches);
-        let result3=extraRunsConceded(deliveries);
-        let result4=mosteconomicalBowlers(deliveries);
-        let result5=mostManOfTheMatches(matches);
-        let result6=winsPerVenue(matches);
-        let result7 = winsByAllTeams(matches);
-        let result102 = tosses(matches);
+        let resultmatchesPlayedPerYear = matchesPlayedPerYear(matches);
+        let resultwinsPerTeameachYear = winsPerTeameachYear(matches);
+        let resultextraRunsConceded = extraRunsConceded(deliveries);
+        let resultmosteconomicalBowlers = mosteconomicalBowlers(deliveries);
+        let resultmostManOfTheMatches = mostManOfTheMatches(matches);
+        let resultwinsPerVenue = winsPerVenue(matches);
+        let resultwinsByAllTeams = winsByAllTeams(matches);
+        let resulttosses = tosses(matches);
 
-        let result801 = tossMatchesWon(matches);
-        let result802 = manOfMatchEachSeason(matches);
-        let result803 = strikerates(matches,deliveries);
-        let result804 = playerDismissed(deliveries);
-        let result806 = superOverEconomies(deliveries);
+        let resulttossMatchesWon = tossMatchesWon(matches);
+        let resultmanOfMatchEachSeason = manOfMatchEachSeason(matches);
+        let resultstrikerates = strikerates(matches,deliveries);
+        let resultgayleStrikeRate = gayleStrikeRate(matches,deliveries);
+        let resultplayerDismissed = playerDismissed(deliveries);
+        let resultDismissalsofGayle = DismissalsofGayle(deliveries);
+        let resultsuperOverEconomies = superOverEconomies(deliveries);
+        //let resultx= strikerates1(matches,deliveries);
 
         let resultTossMatchesWon_refactored = tossMatchesWon_refactored(matches);
         let manOfMatchEachSeason_refactored = manOfMatch_refactored(matches);
@@ -67,68 +65,44 @@ function main() {
         let resultPlayersDismissed_refactored = playersDismissed_refactored(deliveries);
         let resultSuperOverEconomies_refactored = superOverEconomies_refactored(deliveries);
 
-        all_in_one_Result['matchesPlayedPerYear'] = result;
-        all_in_one_Result['winsPerTeameachYear'] = result2;
-        all_in_one_Result['extraRunsConceded'] = result3;
-        all_in_one_Result['mosteconomicalBowlers'] = result4;
-        all_in_one_Result['mostManOfTheMatches'] = result5;
-        all_in_one_Result['winsPerVenue'] = result6;
-        all_in_one_Result['winsByAllTeams'] =result7;
-        all_in_one_Result['tosses'] =result102;
+        all_in_one_Result['matchesPlayedPerYear'] = resultmatchesPlayedPerYear;
+        all_in_one_Result['winsPerTeameachYear'] = resultwinsPerTeameachYear;
+        all_in_one_Result['extraRunsConceded'] = resultextraRunsConceded;
+        all_in_one_Result['mosteconomicalBowlers'] = resultmosteconomicalBowlers;
+        all_in_one_Result['mostManOfTheMatches'] = resultmostManOfTheMatches;
+        all_in_one_Result['winsPerVenue'] = resultwinsPerVenue;
+        all_in_one_Result['winsByAllTeams'] = resultwinsByAllTeams;
+        all_in_one_Result['tosses'] = resulttosses;
+
+        extraQuestionSolutionResult['tossMatchesWon'] = resulttossMatchesWon;
+        extraQuestionSolutionResult['manOfMatchEachSeason'] = resultmanOfMatchEachSeason;
+        extraQuestionSolutionResult['strikerates'] = resultstrikerates;
+        extraQuestionSolutionResult['gayleStrikeRate'] = resultgayleStrikeRate;
+        extraQuestionSolutionResult['playerDismissed'] = resultplayerDismissed;
+        extraQuestionSolutionResult['DismissalsofGayle'] = resultDismissalsofGayle;
+        extraQuestionSolutionResult['superOverEconomies'] = resultsuperOverEconomies;
       
-        refactoredResult['TossMatchesWon'] = resultTossMatchesWon_refactored
-        refactoredResult['ManOfMatchEachSeason'] = manOfMatchEachSeason_refactored
-        refactoredResult['StrikeRateRefactored'] = strikeRates_refactoredResult
-        refactoredResult['PlayersDismissed'] = resultPlayersDismissed_refactored
-        refactoredResult['SuperOverEconomy'] = resultSuperOverEconomies_refactored
+        refactoredResult['TossMatchesWon'] = resultTossMatchesWon_refactored;
+        refactoredResult['ManOfMatchEachSeason'] = manOfMatchEachSeason_refactored;
+        refactoredResult['StrikeRateRefactored'] = strikeRates_refactoredResult;
+        refactoredResult['PlayersDismissed'] = resultPlayersDismissed_refactored;
+        refactoredResult['SuperOverEconomy'] = resultSuperOverEconomies_refactored;
 
+        const jsonString_all_in_one_Result =JSON.stringify(all_in_one_Result);
+        const jsonString_extraSolution =JSON.stringify(extraQuestionSolutionResult);
+        const jsonString_Refactored_Result =JSON.stringify(refactoredResult);
 
-        const jsonString =JSON.stringify(all_in_one_Result);
-        fs.writeFile(JSON_OUTPUT_FILE_PATH, jsonString, "utf8", err => {
-        if(err){
-        console.error(err)
-        }
-      });
+        const async = require('async');
+        const arrayOfOutputs = [{filename:JSON_OUTPUT_FILE_PATH, data:jsonString_all_in_one_Result}, {filename:JSON_OUTPUT_FILE_PATH_EXTRA_SOLUTIONS, data:jsonString_extraSolution},{filename:JSON_OUTPUT_FILE_PATH_REFACTORED, data:jsonString_Refactored_Result}];
+        async.map(arrayOfOutputs, writeToJSON);
 
-      const jsonString2 =JSON.stringify(result801);
-        fs.writeFile(JSON_OUTPUT_FILE_PATH_2, jsonString2, "utf8", err => {
-        if(err){
-        console.error(err)
+        function writeToJSON(element){
+          fs.writeFile(element.filename, element.data, "utf8", err => {
+            if(err){
+            console.error(err)
+            }
+          });
         }
-      });
-      const jsonString3 =JSON.stringify(result802);
-        fs.writeFile(JSON_OUTPUT_FILE_PATH_3, jsonString3, "utf8", err => {
-        if(err){
-        console.error(err)
-        }
-      });
-      const jsonString4 =JSON.stringify(result803);
-        fs.writeFile(JSON_OUTPUT_FILE_PATH_4, jsonString4, "utf8", err => {
-        if(err){
-        console.error(err)
-        }
-      });
-      const jsonString5 =JSON.stringify(result804);
-        fs.writeFile(JSON_OUTPUT_FILE_PATH_5, jsonString5, "utf8", err => {
-        if(err){
-        console.error(err)
-        }
-      });
-      const jsonString6 =JSON.stringify(result806);
-        fs.writeFile(JSON_OUTPUT_FILE_PATH_6, jsonString6, "utf8", err => {
-        if(err){
-        console.error(err)
-        }
-      });
-
-      const jsonString10 =JSON.stringify(refactoredResult);
-        fs.writeFile(JSON_OUTPUT_FILE_PATH_REFACTORED, jsonString10, "utf8", err => {
-        if(err){
-        console.error(err)
-        }
-      });
-
-  
   }); 
  });
 }
