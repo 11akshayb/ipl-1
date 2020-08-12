@@ -49,5 +49,18 @@ async function CHGayleStrikeRate(database)
     });    return;
 }
 
+async function CHGayleDismissals(database)
+{
+    const query = 'SELECT bowler,COUNT(*) AS Dismissals FROM deliveries WHERE player_dismissed="CH Gayle" GROUP BY bowler;'
+    var result= await dataHandler(database,query)
+    var jsonString = JSON.stringify(result)
+    fs.writeFile('public/sql-CHGayleDismissals.json',jsonString, "utf8", err => {
+        if(err){
+        console.error(err)
+        }
+    });    return;
+}
 module.exports.tossAndMatches=tossAndMatches;
 module.exports.CHGayleStrikeRate=CHGayleStrikeRate;
+
+module.exports.CHGayleDismissals=CHGayleDismissals;
