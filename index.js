@@ -1,29 +1,24 @@
 var mysql = require('mysql');
+const dotenv = require('dotenv').config();
+var sql = require('./ipl/sqlQueries.js');
 
-var con = mysql.createConnection({
+var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "root",
+  password: 'root',
   database: 'testdb'
 });
 
-
-con.connect(function(err) {
+connection.connect(function(err) {
     if (err) {
         console.error('Error connecting: ' + err.stack);
         return;
     }
 
-    console.log('Connected as id ' + con.threadId);
+    console.log('Connected Succesfully as id ' + connection.threadId);
 });
 
-con.query('SELECT season,Count(*) FROM matches GROUP BY season;', function (error, results, fields) {
-    if (error)
-        throw error;
+sql.tossAndMatches(connection)
 
-    results.forEach(result => {
-        console.log(result);
-    });
-});
 
-con.end();
+connection.end();
