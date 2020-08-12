@@ -18,13 +18,7 @@ connection.connect(function(err) {
     console.log('Connected Succesfully as id ' + connection.threadId);
 });
 
-<<<<<<< HEAD
 sql.tossAndMatches(connection)
-=======
-con.query('SELECT winner,Count(*) FROM matches WHERE winner=toss_winner GROUP BY winner;', function (error, results, fields) {
-    if (error)
-        throw error;
->>>>>>> 446a066c53a1da85208f74337e169324d7f5c636
 
 
 connection.end();
