@@ -21,5 +21,6 @@ connection.connect(function(err) {
 sql.tossAndMatches(connection)
 sql.CHGayleStrikeRate(connection)
 sql.CHGayleDismissals(connection)
+sql.SuperOverEconomies(connection)
 
 connection.end();

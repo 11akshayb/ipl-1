@@ -15,15 +15,6 @@ let dataHandler = (db,sql_query) => {
     return result;
 }
 
-// function JSONstringifying(result){
-//     var jsonString = JSON.stringify(result)
-//     fs.writeFile('public/sql-tossandMatch.json',jsonString, "utf8", err => {
-//         if(err){
-//         console.error(err)
-//         }
-//     });
-    
-// }
 
 async function tossAndMatches(database)
 {
@@ -60,7 +51,20 @@ async function CHGayleDismissals(database)
         }
     });    return;
 }
+
+async function SuperOverEconomies(database)
+{
+    const query = 'SELECT bowler,SUM(total_runs)/(COUNT(bowler)/6) AS super_Economy FROM deliveries WHERE is_super_over!=0 GROUP BY bowler  ORDER BY super_Economy ASC LIMIT 1;'
+    var result= await dataHandler(database,query)
+    var jsonString = JSON.stringify(result)
+    fs.writeFile('public/sql-superOver.json',jsonString, "utf8", err => {
+        if(err){
+        console.error(err)
+        }
+    });    return;
+}
 module.exports.tossAndMatches=tossAndMatches;
 module.exports.CHGayleStrikeRate=CHGayleStrikeRate;
 
 module.exports.CHGayleDismissals=CHGayleDismissals;
+module.exports.SuperOverEconomies=SuperOverEconomies;
