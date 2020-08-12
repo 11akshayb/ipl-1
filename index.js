@@ -19,6 +19,6 @@ connection.connect(function(err) {
 });
 
 sql.tossAndMatches(connection)
-
+sql.CHGayleStrikeRate(connection)
 
 connection.end();
