@@ -17,7 +17,7 @@ con.connect(function(err) {
     console.log('Connected as id ' + con.threadId);
 });
 
-con.query('SELECT season,Count(*) FROM matches GROUP BY season;', function (error, results, fields) {
+con.query('SELECT winner,Count(*) FROM matches WHERE winner=toss_winner GROUP BY winner;', function (error, results, fields) {
     if (error)
         throw error;
 
