@@ -63,8 +63,21 @@ async function SuperOverEconomies(database)
         }
     });    return;
 }
+
+async function CHGayleManofMatch(database)
+{
+    const query = 'SELECT season,COUNT(player_of_match) AS ManofMatches FROM matches WHERE player_of_match="CH Gayle" GROUP BY season;'
+    var result= await dataHandler(database,query)
+    var jsonString = JSON.stringify(result)
+    fs.writeFile('public/sql-CHGayleMan_of_Matches.json',jsonString, "utf8", err => {
+        if(err){
+        console.error(err)
+        }
+    });    return;
+}
 module.exports.tossAndMatches=tossAndMatches;
 module.exports.CHGayleStrikeRate=CHGayleStrikeRate;
+module.exports.CHGayleManofMatch=CHGayleManofMatch;
 
 module.exports.CHGayleDismissals=CHGayleDismissals;
 module.exports.SuperOverEconomies=SuperOverEconomies;
