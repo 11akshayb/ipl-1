@@ -3,10 +3,10 @@ const dotenv = require('dotenv').config();
 var sql = require('./ipl/sqlQueries.js');
 
 var connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: 'root',
-  database: 'testdb'
+  host: process.env.host,
+  user: process.env.user,
+  password: process.env.password,
+  database: process.env.database
 });
 
 connection.connect(function(err) {
@@ -15,7 +15,7 @@ connection.connect(function(err) {
         return;
     }
 
-    console.log('Connected Succesfully as id ' + connection.threadId);
+    console.log('Connected to Database Succesfully as id ' + connection.threadId);
 });
 
 sql.tossAndMatches(connection)
