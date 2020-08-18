@@ -20,6 +20,7 @@ connection.connect(function(err) {
 
 sql.tossAndMatches(connection)
 sql.CHGayleStrikeRate(connection)
+sql.ManOfMatchEachYear(connection)
 sql.CHGayleDismissals(connection)
 sql.SuperOverEconomies(connection)
 sql.CHGayleManofMatch(connection)

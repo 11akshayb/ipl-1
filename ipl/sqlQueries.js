@@ -51,6 +51,14 @@ async function CHGayleDismissals(data)
     return;
 }
 
+async function ManOfMatchEachYear(data)
+{
+    const query = 'WITH MOMCount AS (SELECT player_of_match,season,COUNT(*) AS total FROM matches GROUP BY player_of_match,season) SELECT * FROM MOMCount where MOMCount.total IN (SELECT MAX(total) FROM MOMCount x where x.season=MOMCount.season) ORDER BY 2 ';
+    var result= await dataHandler(data,query)
+    JSONStringifying(result,'ManOfMatchEachYear')
+    return;
+}
+
 async function SuperOverEconomies(data)
 {
     const query = 'SELECT bowler,SUM(total_runs)/(COUNT(bowler)/6) AS super_Economy FROM deliveries WHERE is_super_over!=0 GROUP BY bowler  ORDER BY super_Economy ASC LIMIT 1;'
@@ -69,6 +77,6 @@ async function CHGayleManofMatch(database)
 module.exports.tossAndMatches=tossAndMatches;
 module.exports.CHGayleStrikeRate=CHGayleStrikeRate;
 module.exports.CHGayleManofMatch=CHGayleManofMatch;
-
+module.exports.ManOfMatchEachYear=ManOfMatchEachYear;
 module.exports.CHGayleDismissals=CHGayleDismissals;
 module.exports.SuperOverEconomies=SuperOverEconomies;
