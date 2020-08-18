@@ -95,3 +95,6 @@ node_modules
 
 Procfile
 
+ALTER
+
+.env

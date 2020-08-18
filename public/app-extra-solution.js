@@ -8,8 +8,8 @@ fetchAndVisualizeData();
 
 function VisualizingFunction(obj,data){
   var visualizationArray = (Object.keys(data)).map((key)=>{
-    return (key,data[key])
-  }) 
+    return [key,data[key]]
+  }); 
   Highcharts.chart(obj.container_Id,{
     chart: {
       type: "column"
